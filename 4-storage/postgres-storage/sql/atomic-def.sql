@@ -9,7 +9,7 @@
 -- "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 -- See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
 --
--- Version:     0.5.0
+-- Version:     0.6.0
 -- URL:         -
 --
 -- Authors:     Yali Sassoon, Alex Dean, Fred Blundun
@@ -174,7 +174,12 @@ CREATE TABLE "atomic"."events" (
 	-- Session ID
 	"domain_sessionid" char(36),
 	-- Derived timestamp
-	"derived_tstamp" timestamp
+	"derived_tstamp" timestamp,
+	-- Event schema
+	"event_vendor" varchar(128) DEFAULT NULL,
+	"event_name" varchar(128) DEFAULT NULL,
+	"event_format" varchar(128) DEFAULT NULL,
+	"event_version" varchar(128) DEFAULT NULL
 )
 WITH (OIDS=FALSE)
 ;
