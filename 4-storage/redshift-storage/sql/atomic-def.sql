@@ -193,6 +193,9 @@ CREATE TABLE atomic.events (
 	event_format varchar(128) encode text255 DEFAULT NULL,
 	event_version varchar(128) encode text255 DEFAULT NULL,
 
+	-- Event fingerprint
+	event_fingerprint varchar(128) encode lzo,
+
 	CONSTRAINT event_id_060_pk PRIMARY KEY(event_id)
 )
 DISTSTYLE KEY
