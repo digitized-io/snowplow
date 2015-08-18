@@ -9,7 +9,7 @@
 -- "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 -- See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
 --
--- Version:     0.6.0
+-- Version:     0.7.0
 -- URL:         -
 --
 -- Authors:     Yali Sassoon, Alex Dean, Peter van Wesep, Fred Blundun
@@ -186,6 +186,12 @@ CREATE TABLE atomic.events (
 
 	-- Derived timestamp
 	derived_tstamp timestamp,
+
+	-- Event schema
+	event_vendor varchar(128) encode text255 DEFAULT NULL,
+	event_name varchar(128) encode text255 DEFAULT NULL,
+	event_format varchar(128) encode text255 DEFAULT NULL,
+	event_version varchar(128) encode text255 DEFAULT NULL,
 
 	CONSTRAINT event_id_060_pk PRIMARY KEY(event_id)
 )
