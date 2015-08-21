@@ -30,18 +30,26 @@
   "Wrapper for send-cookie-pixel-or-200,
    pulling in the configuration settings"
   [cookies pixel]
-  (responses/send-cookie-pixel-or-200
+  (send-cookie-pixel-or-200-or-redirect' cookies pixel nil {})
+
+(defn- send-cookie-pixel-or-200-or-redirect'
+  "Wrapper for send-cookie-pixel-or-200-or-redirect,
+   pulling in the configuration settings"
+  [cookies pixel vendor params]
+  (responses/send-cookie-pixel-or-200-or-redirect
     cookies
     config/duration
     config/domain
     config/p3p-header
-    pixel))
+    pixel
+    vendor
+    params))
 
 (defroutes routes
   "Our routes"
   (GET  "/i"                  {c :cookies} (send-cookie-pixel-or-200' c true))
   (GET  "/ice.png"            {c :cookies} (send-cookie-pixel-or-200' c true))  ; legacy name for i
-  (GET  "/:vendor/:version"   {c :cookies} (send-cookie-pixel-or-200' c true))  ; for tracker GET support
+  (GET  "/:vendor/:version"   {c :cookies} {p :params} (send-cookie-pixel-or-200-or-redirect' c true vendor p))  ; for tracker GET support. Need params for potential redirect
   (POST "/:vendor/:version"   {c :cookies} (send-cookie-pixel-or-200' c false)) ; for tracker POST support, no pixel
   (HEAD "/:vendor/:version"   request responses/send-200)                       ; for webhooks' own checks e.g. Mandrill
   (GET  "/healthcheck"        request responses/send-200)
