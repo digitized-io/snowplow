@@ -181,7 +181,9 @@ CREATE TABLE "atomic"."events" (
 	"event_format" varchar(128) DEFAULT NULL,
 	"event_version" varchar(128) DEFAULT NULL,
 	-- Event fingerprint
-	"event_fingerprint" varchar(128)
+	"event_fingerprint" varchar(128),
+	-- True timestamp
+	"true_tstamp" timestamp
 )
 WITH (OIDS=FALSE)
 ;
